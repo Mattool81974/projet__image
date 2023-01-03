@@ -4,8 +4,12 @@ from PIL.Image import *
 from PIL.ImageDraw import *
 from random import *
 
-def IntToStrBin():
-    pass
+def IntToStrBin(n: int, taille = 8):
+    resultat = str(bin(n)).split("b")[1]
+    if len(resultat) < taille:
+        for i in range(taille - len(resultat)):
+            resultat = "0" + resultat
+    return resultat
 
 def binStrToInt(n: str): #Convertir un int binaire dans un str en entier base dix
     resultat = 0
@@ -42,32 +46,55 @@ def defi5Cacher(imageLien1: str, imageLien2 : str): #Fonction correspondant au d
         for x in range(imageTaille[0]): #Parcourir chaque pixel de l'image
             couleur1 = image1.getpixel((x, y))
             couleur2 = image2.getpixel((x, y))
+            if type(couleur1) == int: #Dans le cas ou l'image est grise
+                couleur1 = (couleur1, couleur1, couleur1)
             chiffreAleatoire = randint(0, 1)
+            chiffreAleatoire = 0
             bleu = 0
             rouge = 0
             vert = 0
             if chiffreAleatoire == 1:
-                bleu1 = str(bin(couleur1[2]))[2:6]
-                bleu2 = str(bin(couleur2[2]))[2:6]
+                bleu1 = IntToStrBin(couleur1[2])[0:4]
+                bleu2 = IntToStrBin(couleur2[2])[0:4]
                 bleu = int(binStrToInt(bleu1+bleu2))
-                rouge1 = str(bin(couleur1[0]))[2:6]
-                rouge2 = str(bin(couleur2[0]))[2:6]
+                rouge1 = IntToStrBin(couleur1[0])[0:4]
+                rouge2 = IntToStrBin(couleur2[0])[0:4]
                 rouge = int(binStrToInt(rouge1+rouge2))
-                vert1 = str(bin(couleur1[1]))[2:6]
-                vert2 = str(bin(couleur2[1]))[2:6]
+                vert1 = IntToStrBin(couleur1[1])[0:4]
+                vert2 = IntToStrBin(couleur2[1])[0:4]
                 vert = int(binStrToInt(vert1+vert2))
             if chiffreAleatoire == 0:
-                bleu1 = str(bin(couleur2[2]))[2:6]
-                bleu2 = str(bin(couleur1[2]))[2:6]
+                bleu1 = IntToStrBin(couleur2[2])[0:4]
+                bleu2 = IntToStrBin(couleur1[2])[0:4]
                 bleu = int(binStrToInt(bleu1+bleu2))
-                rouge1 = str(bin(couleur2[0]) )[2:6]
-                rouge2 = str(bin(couleur1[0]) )[2:6]
+                rouge1 = IntToStrBin(couleur2[0])[0:4]
+                rouge2 = IntToStrBin(couleur1[0])[0:4]
                 rouge = int(binStrToInt(rouge1+rouge2))
-                vert1 = str(bin(couleur2[1]))[2:6]
-                vert2 = str(bin(couleur1[1]))[2:6]
+                vert1 = IntToStrBin(couleur2[1])[0:4]
+                vert2 = IntToStrBin(couleur1[1])[0:4]
                 vert = int(binStrToInt(vert1+vert2))
-            #print(couleur1[0], couleur2[0], bin(couleur1[0]), bin(240) and bin(couleur1[0]), bleu1, bleu2, bleu)
+            #print((x, y), (rouge, vert, bleu), rouge2, (rouge, vert, bleu))
             image2.putpixel((x, y), (rouge, vert, bleu))
+    image2.save("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat.png")
     image2.show()
-            
-defi5Cacher("C:/Users/Mattéo Menou/Pictures/coq empire craft.jpg", "C:/Users/Mattéo Menou/Pictures/Donald trump.png")
+
+def defi5Trouver(imageLien: str):
+    image = open(imageLien)
+    imageTaille = image.size  # Obtenir la taille de l'image
+    for y in range(imageTaille[1]):
+        for x in range(imageTaille[0]): #Parcourir chaque pixel de l'image
+            couleur = image.getpixel((x, y))
+            #print(couleur)
+            rouge = binStrToInt(IntToStrBin(int(couleur[0]))[4:9] + "0000")
+            bleu = binStrToInt(IntToStrBin(int(couleur[2]))[4:9] + "0000")
+            vert = binStrToInt(IntToStrBin(int(couleur[1]))[4:9] + "0000")
+            #print((x, y), (rouge, vert, bleu), IntToStrBin(int(couleur[0]))[4:9])
+            image.putpixel((x, y), (rouge, vert, bleu))
+    image.save("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat2.png")
+    image.show()
+
+#defi5Cacher("C:/Users/Matt_o/Pictures/A SUPPRIMER/test1.png", "C:/Users/Matt_o/Pictures/A SUPPRIMER/test2.png")
+#print("---------------")
+#defi5Trouver("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat.png")
+defi5Cacher("C:/Users/Matt_o/Pictures/A SUPPRIMER/noel.jpg", "C:/Users/Matt_o/Pictures/A SUPPRIMER/ecureuil.jpg")
+defi5Trouver("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat.png")
