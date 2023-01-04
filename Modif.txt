@@ -1,0 +1,4 @@
+Ajout fichierExiste param fichier str pour obtenir des infos sur un fichier: existe, 
+Ajout image lien vide dans mimage
+Correction focus image invisible
+Correction curseur = 0 avec texte y = "C"

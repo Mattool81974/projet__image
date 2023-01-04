@@ -88,15 +88,14 @@ def defi5Cacher(imageLien1: str, imageLien2 : str): #Fonction correspondant au d
             rouge = 0
             vert = 0
             bleu1 = IntToStrBin(couleur2[2])[0:4] #Calcul des différentes couleurs
-            bleu2 = IntToStrBin(couleur1[2])[0:4]
+            bleu2 = IntToStrBin(couleur1[2])[0:4][::-1]
             bleu = int(binStrToInt(bleu1+bleu2))
             rouge1 = IntToStrBin(couleur2[0])[0:4]
-            rouge2 = IntToStrBin(couleur1[0])[0:4]
+            rouge2 = IntToStrBin(couleur1[0])[0:4][::-1]
             rouge = int(binStrToInt(rouge1+rouge2))
             vert1 = IntToStrBin(couleur2[1])[0:4]
-            vert2 = IntToStrBin(couleur1[1])[0:4]
+            vert2 = IntToStrBin(couleur1[1])[0:4][::-1]
             vert = int(binStrToInt(vert1+vert2))
-            #print((x, y), (rouge, vert, bleu), rouge2, (rouge, vert, bleu))
             image2.putpixel((x, y), (rouge, vert, bleu))
     image2.save("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat.png")
     image2.show()
@@ -108,17 +107,10 @@ def defi5Trouver(imageLien: str):
         for x in range(imageTaille[0]): #Parcourir chaque pixel de l'image
             couleur = image.getpixel((x, y))
             #print(couleur)
-            rouge = binStrToInt(IntToStrBin(int(couleur[0]))[4:9] + "0000")
-            bleu = binStrToInt(IntToStrBin(int(couleur[2]))[4:9] + "0000")
-            vert = binStrToInt(IntToStrBin(int(couleur[1]))[4:9] + "0000")
+            rouge = binStrToInt(IntToStrBin(int(couleur[0]))[4:9][::-1] + "0000")
+            bleu = binStrToInt(IntToStrBin(int(couleur[2]))[4:9][::-1] + "0000")
+            vert = binStrToInt(IntToStrBin(int(couleur[1]))[4:9][::-1] + "0000")
             #print((x, y), (rouge, vert, bleu), IntToStrBin(int(couleur[0]))[4:9])
             image.putpixel((x, y), (rouge, vert, bleu))
     image.save("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat2.png")
     image.show()
-
-defi3("C:/Users/Matt_o/Pictures/bubsy 3d.png", 57)
-#defi5Cacher("C:/Users/Matt_o/Pictures/A SUPPRIMER/test1.png", "C:/Users/Matt_o/Pictures/A SUPPRIMER/test2.png")
-#print("---------------")
-#defi5Trouver("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat.png")
-#defi5Cacher("C:/Users/Matt_o/Pictures/A SUPPRIMER/noel.jpg", "C:/Users/Matt_o/Pictures/A SUPPRIMER/ecureuil.jpg")
-#defi5Trouver("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat.png")
