@@ -935,22 +935,44 @@ class MImage(MBordure): #Définition d'une classe widget représentant une image
     def _renderBeforeHierarchy(self, surface): #Fonction réimplémenter de MWidget
         if self.imageLien != "":
             xImage = self.borduresLargeurs[3] #Position x de l'image
+            yImage = self.borduresLargeurs[0] #Position y de l'image
             wImage = 1 #Taux d'aggrandissement de l'image dans sa largeur
             hImage = 1 #Taux d'aggrandissement de l'image dans sa hauteur
-            if self.imageAlignement[0] == "C": #Centrer
-                xImage = -self._image.get_size()[0]/2 + self.taille[0] / 2
-            elif self.imageAlignement[0] == "D": #Vers la droite
-                xImage = (-self._image.get_size()[0]) + self.taille[0] - self.borduresLargeurs[1]
-            elif self.imageAlignement[0] == "J":
-                wImage = (self.taille[0] - (self.borduresLargeurs[0] + self.borduresLargeurs[2]))/self._image.get_size()[0]
+            if self.imageAlignement[0] == "F": #Rentrer
+                ratioConteneur = (self.taille[0] - (self.borduresLargeurs[1] + self.borduresLargeurs[3]))/(self.taille[1] - (self.borduresLargeurs[0] + self.borduresLargeurs[2])) #Ratio du widget
+                ratioImage = self._image.get_size()[0]/self._image.get_size()[1] #Ratio de l'image
+                if ratioImage > ratioConteneur:
+                    wImage = (self.taille[0] - (self.borduresLargeurs[1] + self.borduresLargeurs[3]))/self._image.get_size()[0]
+                    hImage = wImage
+                else:
+                    wImage = (self.taille[1] - (self.borduresLargeurs[0] + self.borduresLargeurs[2]))/self._image.get_size()[1]
+                    hImage = wImage
+                
+                if self.imageAlignement[1] == "C": #La position de l'image
+                    if ratioImage > ratioConteneur:
+                        yImage = self.taille[1]/2 - (hImage*self._image.get_size()[1])/2
+                    else:
+                        xImage = self.taille[0]/2 - (wImage*self._image.get_size()[0])/2
+                elif self.imageAlignement[1] == "D" or self.imageAlignement[1] == "B":
+                    if ratioImage > ratioConteneur:
+                        yImage = (self.taille[1] - self.borduresLargeurs[2]) - (hImage*self._image.get_size()[1])
+                    else:
+                        xImage = (self.taille[0] - self.borduresLargeurs[1]) - (wImage*self._image.get_size()[0])
+            else:
+                if self.imageAlignement[0] == "C": #Centrer
+                    xImage = -self._image.get_size()[0]/2 + self.taille[0] / 2
+                elif self.imageAlignement[0] == "D": #Vers la droite
+                    xImage = (-self._image.get_size()[0]) + self.taille[0] - self.borduresLargeurs[1]
+                elif self.imageAlignement[0] == "J":
+                    wImage = (self.taille[0] - (self.borduresLargeurs[0] + self.borduresLargeurs[2]))/self._image.get_size()[0]
             
-            yImage = self.borduresLargeurs[0] #Position y de l'image
-            if self.imageAlignement[1] == "C": #Centrer
-                yImage = -self._image.get_size()[1]/2 + self.taille[1] / 2
-            elif self.imageAlignement[1] == "B": #Vers la droite
-                yImage = (-self._image.get_size()[1]) + self.taille[1] - self.borduresLargeurs[2]
-            elif self.imageAlignement[1] == "J":
-                hImage = (self.taille[1] - (self.borduresLargeurs[1] + self.borduresLargeurs[3]))/self._image.get_size()[1]
+                yImage = self.borduresLargeurs[0] #Position y de l'image
+                if self.imageAlignement[1] == "C": #Centrer
+                    yImage = -self._image.get_size()[1]/2 + self.taille[1] / 2
+                elif self.imageAlignement[1] == "B": #Vers la droite
+                    yImage = (-self._image.get_size()[1]) + self.taille[1] - self.borduresLargeurs[2]
+                elif self.imageAlignement[1] == "J":
+                    hImage = (self.taille[1] - (self.borduresLargeurs[1] + self.borduresLargeurs[3]))/self._image.get_size()[1]
             
             if wImage * self._image.get_size()[0] != self._ancienneImageTaille[0] or hImage * self._image.get_size()[1] != self._ancienneImageTaille[1]: #Si modification nécessaire
                 self._imageShowed = transform.scale(self._image, (wImage*self._image.get_size()[0], hImage*self._image.get_size()[1]))
