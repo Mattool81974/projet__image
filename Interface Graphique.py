@@ -6,8 +6,8 @@ TAILLE=(700, 500) #La taille de la fenêtre
 fenetre=display.set_mode(TAILLE) #Création de la fenêtre pygame
 app = MFenetre(fenetre, "Mon app", afficherFps=True) #Création de la fenêtre MLib
 image = MImage("", (0, 50), (500, 450), app, imageAlignement="FC") #Création de l'élément graphique où sera affiché l'image
-outilInterface = MTexte("Outil", (502, 50), (196, 498), app, bordureLargeur=2, policeTaille=36, texteAlignement="CH") #Interface pour les outils
-outilTitre = MTexte("Ouvrez un outil", (48, 50), (100, 50), outilInterface)
+outilInterface = MTexte("Outil", (502, 50), (196, 498), app, bordureLargeur=2, borduresLargeurs=[None, None, None, None], policeTaille=36, texteAlignement="CH") #Interface pour les outils
+outilTitre = MTexte("Ouvrez un outil", (48, 50), (100, 50), outilInterface, bordureLargeur=0, texteAlignement="CH") #Nom de l'outil sélectionné
 ouvrir = MBouton("Ouvrir une image", (2, 2), (146, 46), app, actionAuSurvol="policeTaille=22", bordureLargeur=2, policeTaille=20, texteAlignement="CC")
 #Bouton pour ouvrir une image
 ouvrirInterface = MWidget((0, 50), (500, 450), app) #Widget qui contient tout le nécessaire pour ouvrir une image
@@ -22,7 +22,7 @@ imageLien = ""
 
 while True:
     app.frame() #Update de la fenêtre MLib
-
+    
     if ouvrir.get_isFocused(): #Si le bouton pour ouvrir un lien d'image clické
         image.set_visible(False)
         ouvrirInterface.set_visible(True)

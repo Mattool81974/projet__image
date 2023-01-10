@@ -73,6 +73,33 @@ def defi3(imageLien: str, nw: int, nh: int = None): #Fonction correspondant au d
             offsetX += offsetErreurX
         offsetY += offsetErreurY
     image.show()
+    
+def defi4(imageLien: str, seuil: int = 125): #Fonction correspondant au défi 4
+    image = open(imageLien)
+    image2 = Image.new("RGB", image.size, (0, 255, 0)) #Création des images nécessaire de couleur qui serai celle du blanc
+    image3 = Image.new("RGB", image.size, (245, 245, 0))
+    image4 = Image.new("RGB", image.size, (250, 100, 190))
+    for y in range(image.size[1]):
+        for x in range(image.size[0]): #Plan de l'image
+            pixel = image.getpixel((x, y))
+            moyenne = (pixel[0] + pixel[1] + pixel[2])/3
+            image.putpixel((x, y), (223, 226, 0))
+            if moyenne > seuil:
+                image.putpixel((x, y), (0, 0, 0))
+                image2.putpixel((x, y), (0, 0, 0))
+                image3.putpixel((x, y), (0, 0, 0))
+                image4.putpixel((x, y), (0, 0, 0))
+    imageFinal = Image.new("RGB", image.size, (0, 0, 0))
+    taille = image.size
+    image.thumbnail((int(taille [0]/2), int(taille [1]/2)), 3)
+    image2.thumbnail((int(taille [0]/2), int(taille [1]/2)), 3)
+    image3.thumbnail((int(taille [0]/2), int(taille [1]/2)), 3)
+    image4.thumbnail((int(taille [0]/2), int(taille [1]/2)), 3)
+    imageFinal.paste(image, (0, 0))
+    imageFinal.paste(image2, (int(taille[0]/2), 0))
+    imageFinal.paste(image4, (0, int(taille[1]/2)))
+    imageFinal.paste(image3, (int(taille[0]/2), int(taille[1]/2)))
+    imageFinal.show()
                   
 def defi5Cacher(imageLien1: str, imageLien2 : str): #Fonction correspondant au défi 5
     image1 = open(imageLien1) #Chargé l'image 1
@@ -97,7 +124,6 @@ def defi5Cacher(imageLien1: str, imageLien2 : str): #Fonction correspondant au d
             vert2 = IntToStrBin(couleur1[1])[0:4][::-1]
             vert = int(binStrToInt(vert1+vert2))
             image2.putpixel((x, y), (rouge, vert, bleu))
-    image2.save("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat.png")
     image2.show()
 
 def defi5Trouver(imageLien: str):
@@ -112,5 +138,6 @@ def defi5Trouver(imageLien: str):
             vert = binStrToInt(IntToStrBin(int(couleur[1]))[4:9][::-1] + "0000")
             #print((x, y), (rouge, vert, bleu), IntToStrBin(int(couleur[0]))[4:9])
             image.putpixel((x, y), (rouge, vert, bleu))
-    image.save("C:/Users/Matt_o/Pictures/A SUPPRIMER/resultat2.png")
     image.show()
+    
+#defi5Cacher("C:/Users/Mattéo Menou/Pictures/coq empire craft.jpg", "C:/Users/Mattéo Menou/Pictures/Donald trump.png")
