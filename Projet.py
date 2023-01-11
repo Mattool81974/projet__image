@@ -29,7 +29,7 @@ def defi3(imageLien: str, nw: int, nh: int = None): #Fonction correspondant au d
     imageTailleErreurYErreur = IMAGETAILLEERREURY%imagePixeliseTaille[1] #Nombre de pixel d'erreurs pour le calcul du nombre de pixels d'erreurs à la hauteur
     offsetY = 0 #Taux de décalage de y pour éviter des erreurs et des zones non pixellés
     multiplieurHauteur = 1 #Variable permettant de compter ou non la hauteur à retirer
-    if imageTailleErreurY == 0: #Si il n'y aura aps de pixels non pixellisés
+    if imageTailleErreurY == 0: #Si il n'y aura pas de pixels non pixellisés
         multiplieurHauteur = 0 #Ignorer la hauteur à retirer
     for y in range(0, imageTaille[1] - nh * multiplieurHauteur, nh): #Parcourir chaque pixel de l'image
         imageTailleErreurX = imageTaille[0]%nw #Nombre de pixels d'erreurs à la largeur

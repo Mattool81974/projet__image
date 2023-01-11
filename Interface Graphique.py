@@ -53,14 +53,15 @@ while True:
                 ouvrirIllustration.set_imageLien("")
         ancienLien = lien
         
-        if ouvrirValider.get_isFocused() and lienInfo["Existe"]:
+        if ouvrirValider.get_isFocused() and lienInfo["Existe"]: #Si le bouton pour ouvrir une image est clické
             imageLien = lienInfo["LienFormate"]
+            imageOriginal = lienInfo["LienFormate"]
             image.set_visible(True)
             ouvrirInterface.set_visible(False)
 
     if pixelliser.get_visible():
-        lienInfo = fichierInfo(imageLien, "Image")
-        if imageLien != "" and pixelliserEntreeNLargeur.get_texte() != "" and int(pixelliserEntreeNLargeur.get_texte()) > lienInfo["ImageTaille"][0]:
+        lienInfo = fichierInfo(imageOriginal, "Image")
+        if imageOriginal != "" and pixelliserEntreeNLargeur.get_texte() != "" and int(pixelliserEntreeNLargeur.get_texte()) > lienInfo["ImageTaille"][0]:
             pixelliserEntreeNLargeur.set_texte(str(lienInfo["ImageTaille"][0]))
 
         if pixelliserValider.get_isFocused() and lienInfo["Existe"]:
