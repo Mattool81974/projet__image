@@ -72,7 +72,7 @@ def defi3(imageLien: str, nw: int, nh: int = None): #Fonction correspondant au d
                     couleur = image.putpixel((x + j, y + i), couleurFinal)
             offsetX += offsetErreurX
         offsetY += offsetErreurY
-    image.show()
+    return image
     
 def defi4(imageLien: str, seuil: int = 125): #Fonction correspondant au défi 4
     image = open(imageLien)

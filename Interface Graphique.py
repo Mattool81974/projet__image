@@ -20,11 +20,13 @@ pixelliser = MBouton("Pixelliser", (150, 2), (146, 46), app, actionAuSurvol="pol
 pixelliserInterface = MWidget((2, 2), (192, 494), outilInterface) #Interface de pixellisation dans l'onglet outil
 pixelliserInterface.set_visible(False) #Interface invisible de base
 pixelliserTitreNLargeur = MTexte("Largeur pixels:", (0, 75), (192, 30), pixelliserInterface, policeTaille=26, texteAlignement="CH") #Titre pour rentrer n de largeur
-pixelliserEntreeNLargeur = MEntreeTexte((50, 125), (92, 30), pixelliserInterface, caracteresAutorises="1234567890", policeTaille=22, longueurMax=8)
+pixelliserEntreeNLargeur = MEntreeTexte((50, 125), (92, 30), pixelliserInterface, caracteresAutorises="1234567890", policeTaille=22, longueurMax=8) #Entrer de n de largeur
+pixelliserValider = MBouton("Valider", (52, 400), (88, 35), pixelliserInterface, policeTaille=20, actionAuSurvol="policeTaille=22", texteAlignement="CC") #Bouton pour valider la pixellisation
 
-ancienLien = ""
-ancienLienImage = ""
-imageLien = ""
+ancienLien = "" #Variable permettant de savoir quel était l'image de la frame d'avant dans l'illustration d'ouverture pour ne pas la changer à chaque frame
+ancienLienImage = "" #Variable permettant de savoir quel était l'image de la frame d'avant pour ne pas la changer à chaque frame
+imageOriginal = "" #Dernière image ouverte par l'utilisateur
+imageLien = "" #Image affiché
 
 while True:
     app.frame() #Update de la fenêtre MLib
@@ -60,5 +62,11 @@ while True:
         lienInfo = fichierInfo(imageLien, "Image")
         if imageLien != "" and pixelliserEntreeNLargeur.get_texte() != "" and int(pixelliserEntreeNLargeur.get_texte()) > lienInfo["ImageTaille"][0]:
             pixelliserEntreeNLargeur.set_texte(str(lienInfo["ImageTaille"][0]))
+
+        if pixelliserValider.get_isFocused() and lienInfo["Existe"]:
+            imageTemp = defi3(lienInfo["LienFormate"], int(pixelliserEntreeNLargeur.get_texte()))
+            imageTemp.save("temp.png")
+            imageLien = "temp.png"
+
 
     display.flip() #Update de la fenêtre pygame
