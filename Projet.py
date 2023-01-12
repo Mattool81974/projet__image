@@ -99,12 +99,18 @@ def defi4(imageLien: str, seuil: int = 125): #Fonction correspondant au défi 4
     imageFinal.paste(image2, (int(taille[0]/2), 0))
     imageFinal.paste(image4, (0, int(taille[1]/2)))
     imageFinal.paste(image3, (int(taille[0]/2), int(taille[1]/2)))
-    imageFinal.show()
+    return imageFinal
                   
-def defi5Cacher(imageLien1: str, imageLien2 : str): #Fonction correspondant au défi 5
-    image1 = open(imageLien1) #Chargé l'image 1
-    image2 = open(imageLien2) #Chargé l'image 2
-    imageTaille = image1.size #Obtenir la taille de l'image
+def defi5Cacher(imageLienACacher: str, imageLienDansCacher : str): #Fonction correspondant au défi 5
+    image1 = open(imageLienACacher) #Chargé l'image 1
+    image2 = open(imageLienDansCacher) #Chargé l'image 2
+    imageTaille = image1.size #Obtenir la taille de l'image à cacher
+    imageTaille2 = image2.size #Obtenir la taille de l'image dans cacher
+    if imageTaille[0] > imageTaille2[0]: #Redimenssioner l'image si nécessaire
+        image1.thumbnail((imageTaille2[0], imageTaille[1]))
+    if imageTaille[1] > imageTaille2[1]:
+        image1.thumbnail((imageTaille[0], imageTaille2[1]))
+    imageTaille = image1.size #Obtenir la taille de l'image à cacher après redimmensionnement
     for y in range(imageTaille[1]):
         for x in range(imageTaille[0]): #Parcourir chaque pixel de l'image
             couleur1 = image1.getpixel((x, y))
@@ -140,4 +146,4 @@ def defi5Trouver(imageLien: str):
             image.putpixel((x, y), (rouge, vert, bleu))
     image.show()
     
-#defi5Cacher("C:/Users/Mattéo Menou/Pictures/coq empire craft.jpg", "C:/Users/Mattéo Menou/Pictures/Donald trump.png")
+defi5Cacher("C:/Users/Mattéo Menou/Pictures/Donald trump.png", "C:/Users/Mattéo Menou/Pictures/coq empire craft.jpg").show()
