@@ -130,7 +130,7 @@ def defi5Cacher(imageLienACacher: str, imageLienDansCacher : str): #Fonction cor
             vert2 = IntToStrBin(couleur1[1])[0:4][::-1]
             vert = int(binStrToInt(vert1+vert2))
             image2.putpixel((x, y), (rouge, vert, bleu))
-    image2.show()
+    return image2
 
 def defi5Trouver(imageLien: str):
     image = open(imageLien)
@@ -144,6 +144,7 @@ def defi5Trouver(imageLien: str):
             vert = binStrToInt(IntToStrBin(int(couleur[1]))[4:9][::-1] + "0000")
             #print((x, y), (rouge, vert, bleu), IntToStrBin(int(couleur[0]))[4:9])
             image.putpixel((x, y), (rouge, vert, bleu))
-    image.show()
-    
-defi5Cacher("C:/Users/Mattéo Menou/Pictures/Donald trump.png", "C:/Users/Mattéo Menou/Pictures/coq empire craft.jpg").show()
+    return image
+
+image = defi5Trouver("temp.png")
+image.save("temp.png")

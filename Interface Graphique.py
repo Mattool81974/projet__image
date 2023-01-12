@@ -40,7 +40,8 @@ while True:
         
     if image.get_visible():
         if ancienLienImage != imageLien:
-            image.set_imageLien(imageLien)
+            print("U", imageLien, ancienLienImage)
+            image.set_imageLien(imageLien, True)
             ancienLienImage = imageLien
 
     if ouvrir.get_visible(): #Si l'interface de lien d'image est clické
@@ -65,8 +66,10 @@ while True:
             pixelliserEntreeNLargeur.set_texte(str(lienInfo["ImageTaille"][0]))
 
         if pixelliserValider.get_isFocused() and lienInfo["Existe"]:
+            print("A")
             imageTemp = defi3(lienInfo["LienFormate"], int(pixelliserEntreeNLargeur.get_texte()))
             imageTemp.save("temp.png")
+            ancienLienImage = ""
             imageLien = "temp.png"
 
 

@@ -1,5 +1,0 @@
-Ajout alignement "F" pour fit pour rentrer l'image dans MImage de tel façon à ce que elle rentrer parfaitement mais soit entièrement visible et 2eme char position partie pas rentré
-Ajout fichierExiste param fichier str pour obtenir des infos sur un fichier: existe, 
-Ajout image lien vide dans mimage
-Correction focus image invisible
-Correction curseur = 0 avec texte y = "C"
